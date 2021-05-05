@@ -11,58 +11,63 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Shrikhand"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Cabin"
+    />
   </head>
   <body>
-    <div class="container">
-      <div class="container-header">
-        <div class="header">
-          <div class="title">
-            <a href="index.jsp" class="title-link">
-              <img src="./image/logo.svg" class="logo-svg" />
-              <div class="title-text">Flynet</div>
-            </a>
-          </div>
-          <div class="nav-container">
-            <ul class="nav">
-              <li class="nav-elements">
-                <a href="VisualizzazioneOrari" class="nav-link"
-                  >Visualizzazione Orari</a
-                >
-              </li>
-              <li class="nav-elements">
-                <a href="index.jsp" class="nav-link">Postazioni Multimediali</a>
-              </li>
-              <li class="nav-elements">
-                <a href="index.jsp" class="nav-link">Gestione Voli</a>
-              </li>
-            </ul>
-            <div class="nav-white"><div class="nav-inner-white"></div></div>
+    <section class="container">
+      <nav class="menu-container">
+        <a href="Partenze">Partenze</a>
+        <a href="Arrivi">Arrivi</a>
+        <a href="">Gestione Voli</a>
+      </nav>
+      <div class="title-container">
+        <h2 class="main-title">Flynet</h2>
+        <img
+          src="image/Background.png"
+          alt="Background"
+          class="background-img"
+        />
+        <img src="image/Cloud.png" alt="Cloud" class="cloud-img" />
+        <img src="image/Airplane.png" alt="Airplane" class="airplane-img" />
+      </div>
+      <div class="content">
+        <div class="weather-container">
+          <h4 class="content-title">Meteo</h4>
+          <!-- <script src="https://apps.elfsight.com/p/platform.js"></script> -->
+          <div
+            class="elfsight-app-c5814081-1c80-48c9-9a07-31611f7ef1d0 weather"
+          ></div>
+        </div>
+        <div class="map-container">
+          <h4 class="content-title">Indicazioni Aereoporto</h4>
+          <div class="location-map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12358.55360382416!2d9.0556777!3d39.2510794!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x10ef502c8f5e21f1!2sAeroporto%20di%20Cagliari-Elmas!5e0!3m2!1sit!2sit!4v1619982503538!5m2!1sit!2sit"
+              width="500"
+              height="610"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+            ></iframe>
           </div>
         </div>
+        <div class="planimetry-container">
+          <h4 class="content-title">Planimetria Aereoporto</h4>
+          <img
+            src="image/Planimetria.png"
+            alt="Planimetria"
+            class="planimetry"
+          />
+        </div>
       </div>
-      <div class="container-content">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eligendi
-        ipsa possimus explicabo nihil autem consequuntur provident sequi dicta
-        in. Repellat quo sed placeat totam. Aut corrupti ullam, ut, maiores
-        tempora voluptatibus ab porro officiis enim quidem at dolorum ratione
-        eum nobis exercitationem, eius quod pariatur numquam cupiditate sunt ex?
-        Aspernatur odio, commodi expedita voluptatibus libero necessitatibus
-        neque nobis illo! Ad atque illum, reprehenderit amet aut maiores at
-        soluta facilis beatae velit incidunt saepe ullam suscipit? Repellendus
-        esse officia voluptates, mollitia a veritatis iusto culpa, nostrum dicta
-        distinctio odio. Suscipit eos consequuntur sequi magnam a rerum
-        veritatis laboriosam officia minima quos aliquam rem aut, tenetur quo
-        blanditiis deserunt similique alias accusamus architecto fugit.
-        Repellendus fuga, nisi voluptatum natus totam saepe ab error impedit
-        quia recusandae earum neque quidem perferendis illum reiciendis esse!
-        Aspernatur quisquam exercitationem, beatae illum dolore nulla obcaecati
-        optio quaerat itaque, unde veritatis enim, esse et numquam praesentium
-        quam veniam animi? Dolore quidem ad rem! Earum modi similique cum quo.
-        Ea tempora similique alias totam esse possimus perspiciatis aspernatur
-        provident ex at, repellat nulla pariatur incidunt maxime autem sit cum
-        minima accusantium quasi ut nostrum necessitatibus eligendi obcaecati
-        eos! Dolorem expedita quo qui eum velit sequi, culpa ducimus!
-      </div>
-    </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/ScrollMagic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/plugins/animation.gsap.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>

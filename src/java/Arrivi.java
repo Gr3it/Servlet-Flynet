@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 
-@WebServlet(urlPatterns = {"/VisualizzazioneOrari"})
-public class VisualizzazioneOrari extends HttpServlet {
+@WebServlet(urlPatterns = {"/Arrivi"})
+public class Arrivi extends HttpServlet {
     
     private final String URL_DB = "jdbc:mysql://localhost:3306/aereoporto";
     private final String driver = "com.mysql.jdbc.Driver";
@@ -27,7 +27,7 @@ public class VisualizzazioneOrari extends HttpServlet {
             System.err.println("Driver non trovato." + ex.getMessage());
         }
         
-        String query = "select id, sigla, aeroporto, compagnia, codice_volo, partenza, arrivo from volo where tipo='And' order by partenza";
+        String query = "select id, sigla, aeroporto, nome_compagnia, codice_volo, partenza, arrivo from volo, compagnia where tipo='Rit' and compagnia = id_compagnia order by partenza";
         
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -35,9 +35,25 @@ public class VisualizzazioneOrari extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet VisualizzazioneOrari</title>");
-            out.println("<link rel=\"stylesheet\" href=\"./style.css\" />");
+            out.println("<link rel=\"stylesheet\" href=\"./style.css\" />\n" +
+"    <link rel=\"icon\" type=\"image/png\" href=\"./favicon.png\" />\n" +
+"    <link\n" +
+"      rel=\"stylesheet\"\n" +
+"      href=\"https://fonts.googleapis.com/css?family=Shrikhand\"\n" +
+"    />\n" +
+"    <link\n" +
+"      rel=\"stylesheet\"\n" +
+"      href=\"https://fonts.googleapis.com/css?family=Cabin\"\n" +
+"    />");
             out.println("</head>");
             out.println("<body>");
+            
+            out.println("<nav class=\"menu-container-servlet\">\n" +
+"        <a class=\"link-home\" href=\"index.jsp\">Home</a>\n" +
+"        <a href=\"Partenze\">Partenze</a>\n" +
+"        <a class=\"link-active\" href=\"Arrivi\">Arrivi</a>\n" +
+"        <a href=\"\">Gestione Voli</a>\n" +
+"      </nav>");
 
             try {
                 connessione = DriverManager.getConnection(URL_DB, user, psw);
@@ -46,17 +62,18 @@ public class VisualizzazioneOrari extends HttpServlet {
 
                 ResultSet result = statement.executeQuery(query);
 
-                out.println("<table>");
-                out.println("<tr><th>id</th><th>sigla</th><th>aeroporto</th><th>compagnia</th><th>codice volo</th><th>partenza</th><th>arrivo</th></tr>");
+                out.println("<div class=\"table-container\"><table class=\"table\">");
+                out.println("<tr><th>Codice volo</th><th>Compagnia</th><th>Aeroporto</th><th>Partenza</th><th>Arrivo</th></tr>");
                 
                 while (result.next()) {
-                    out.println("<tr>" + "<td>" + result.getString("id") + "</td>" + "<td>" + result.getString("sigla")
-                            + "</td>" + "<td>" + result.getString("aeroporto") + "</td>" + "<td>"
-                            + result.getString("compagnia") + "</td>" + "<td>" + result.getString("codice_volo")
-                            + "</td>" + "<td>" + result.getString("partenza") + "</td>" + "<td>"
-                            + result.getString("arrivo") + "</td>" + "</tr>");
+                    out.println("<tr>"
+                            + "<td>" + result.getString("codice_volo") + "</td>"
+                            + "<td>" + result.getString("nome_compagnia") + "</td>" 
+                            + "<td>" + result.getString("aeroporto") + "</td>"                           
+                            + "<td>" + result.getString("partenza") + "</td>" 
+                            + "<td>" + result.getString("arrivo") + "</td>" + "</tr>");
                 }
-                out.println("</table>");
+                out.println("</table></div>");
 
             } catch (SQLException ex) {
                 System.err.println("Errore nella connessione. " + ex.getMessage());
