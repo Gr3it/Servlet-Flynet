@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = {"/Partenze"})
 public class Partenze extends HttpServlet {
@@ -20,6 +21,7 @@ public class Partenze extends HttpServlet {
             throws ServletException, IOException {
         
         Connection connessione = null;
+        HttpSession session = request.getSession();
         
         try {
             Class.forName(driver);
@@ -29,12 +31,12 @@ public class Partenze extends HttpServlet {
         
         String query = "select id, sigla, aeroporto, nome_compagnia, codice_volo, partenza, arrivo from volo, compagnia where tipo='And' and compagnia = id_compagnia order by partenza";
         
-                response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet VisualizzazioneOrari</title>");
+            out.println("<title>VisualizzazioneOrari</title>");
             out.println("<link rel=\"stylesheet\" href=\"./style.css\" />\n" +
 "    <link rel=\"icon\" type=\"image/png\" href=\"./favicon.png\" />\n" +
 "    <link\n" +
@@ -47,13 +49,16 @@ public class Partenze extends HttpServlet {
 "    />");
             out.println("</head>");
             out.println("<body>");
-            
-            out.println("<nav class=\"menu-container-servlet\">\n" +
-"        <a class=\"link-home\" href=\"index.jsp\">Home</a>\n" +
+            out.println("<nav class=\"menu-container-servlet\">\n");
+            out.println("<a class=\"link-home\" href=\"index.jsp\">Home</a>\n" +
 "        <a class=\"link-active\" href=\"Partenze\">Partenze</a>\n" +
 "        <a href=\"Arrivi\">Arrivi</a>\n" +
-"        <a href=\"\">Gestione Voli</a>\n" +
-"      </nav>");
+"        <a href=\"Gestione_Voli\">Gestione Voli</a>\n");
+         if(session.getAttribute("username")!=null){
+             out.println("<a href=\"jsp/Pannello_Modifiche.jsp\">Pannello Modifiche</a>\n" +
+"        <a class=\"login\" href=\"jsp/logout.jsp\">Logout</a>");
+         }
+            out.println("</nav>");
 
             try {
                 connessione = DriverManager.getConnection(URL_DB, user, psw);

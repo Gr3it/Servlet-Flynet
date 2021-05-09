@@ -21,7 +21,13 @@
       <nav class="menu-container">
         <a href="Partenze">Partenze</a>
         <a href="Arrivi">Arrivi</a>
-        <a href="">Gestione Voli</a>
+        <a href="Gestione_Voli">Gestione Voli</a>
+        <%if(session.getAttribute("username")!=null){%>
+        <a href="jsp/Pannello_Modifiche.jsp">Pannello Modifiche</a>
+        <a class="login" href="jsp/logout.jsp">Logout</a>       
+        <%}else{%>
+        <a class="login" href="jsp/login.jsp">Login</a>  
+        <%}%>
       </nav>
       <div class="title-container">
         <h2 class="main-title">Flynet</h2>
