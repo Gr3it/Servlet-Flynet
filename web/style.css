@@ -29,7 +29,7 @@
 
   /* logo-size */
   --small-logo: 0.5rem;
-  --medium-logo: 1rem;
+  --medium-logo: 2rem;
   --big-logo: 6rem;
 
   /* transaction */
@@ -100,6 +100,24 @@ a {
   transform: translate(-50%, -30%);
   font-family: var(--Shrikhand);
   letter-spacing: 1rem;
+}
+
+.fa-angle-double-down {
+  width: var(--medium-logo);
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -95%);
+  cursor: pointer;
+}
+
+.fa-angle-double-up {
+  width: var(--medium-logo);
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -95%);
+  cursor: pointer;
 }
 
 .content {
