@@ -2,10 +2,19 @@
 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<% final String URL_DB = "jdbc:mysql://localhost:3306/aereoporto"; final String
-driver = "com.mysql.jdbc.Driver"; final String user = "root"; final String psw =
-""; Connection connessione=null; try { Class.forName(driver); } catch
-(ClassNotFoundException ex) { System.err.println(ex.getMessage()); } %>
+<% 
+    final String URL_DB = "jdbc:mysql://localhost:3306/aereoporto"; 
+    final String driver = "com.mysql.jdbc.Driver"; 
+    final String user = "root"; 
+    final String psw = ""; 
+    
+    Connection connessione=null; 
+    
+    try { 
+        Class.forName(driver);
+    } catch (ClassNotFoundException ex) { 
+        System.err.println(ex.getMessage()); 
+    } %>
 
 <html>
   <head>
@@ -154,60 +163,73 @@ driver = "com.mysql.jdbc.Driver"; final String user = "root"; final String psw =
       />
     </form>
 
-    <%} if(request.getParameter("add_volo_confirm") != null){ try { connessione
-    = DriverManager.getConnection(URL_DB,user,psw); PreparedStatement p =
-    connessione.prepareStatement("INSERT INTO volo (sigla, aeroporto, compagnia,
-    codice_volo, partenza, arrivo, tipo) VALUES (?,?,?,?,?,?,?)");
-    p.setString(1,request.getParameter("sigla"));
-    p.setString(2,request.getParameter("aeroporto"));
-    p.setString(3,request.getParameter("compagnia"));
-    p.setString(4,request.getParameter("codice_volo"));
-    p.setString(5,request.getParameter("partenza"));
-    p.setString(6,request.getParameter("arrivo"));
-    p.setString(7,request.getParameter("tipo")); int result=p.executeUpdate();
+    <%} if(request.getParameter("add_volo_confirm") != null){ 
+    try { 
+        connessione = DriverManager.getConnection(URL_DB,user,psw); 
+        PreparedStatement p = connessione.prepareStatement("INSERT INTO volo (sigla, aeroporto, compagnia, codice_volo, partenza, arrivo, tipo) VALUES (?,?,?,?,?,?,?)");
+        p.setString(1,request.getParameter("sigla"));
+        p.setString(2,request.getParameter("aeroporto"));
+        p.setString(3,request.getParameter("compagnia"));
+        p.setString(4,request.getParameter("codice_volo"));
+        p.setString(5,request.getParameter("partenza"));
+        p.setString(6,request.getParameter("arrivo"));
+        p.setString(7,request.getParameter("tipo")); 
+
+    int result=p.executeUpdate();
     if(result > 0){ %>
     <h1 class="query-result">Volo aggiunto con successo</h1>
     <% }else{ %>
     <h1 class="query-result">Errore nell'aggiunta del volo</h1>
-    <% } } catch (SQLException ex) { System.err.println("Errore nella
-    connessione. " + ex.getMessage()); } finally { if (connessione != null) {
-    try { connessione.close(); } catch (SQLException ex) {
-    System.err.println("Errore nella connessione. " + ex.getMessage()); } } } }
-    if(request.getParameter("add_compagnia_confirm") != null){ try { connessione
-    = DriverManager.getConnection(URL_DB,user,psw); PreparedStatement p =
-    connessione.prepareStatement("INSERT INTO compagnia (nome_compagnia) VALUES
-    (?)"); p.setString(1,request.getParameter("compagnia")); int
-    result=p.executeUpdate(); if(result > 0){ %>
+    <% } 
+    } catch (SQLException ex) { System.err.println("Errore nella connessione. " + ex.getMessage());
+    } finally { 
+        if (connessione != null) {
+    try { 
+        connessione.close();
+    } catch (SQLException ex) {
+        System.err.println("Errore nella connessione. " + ex.getMessage());
+    } } } }
+    if(request.getParameter("add_compagnia_confirm") != null){ 
+        try { 
+            connessione = DriverManager.getConnection(URL_DB,user,psw); 
+            PreparedStatement p = connessione.prepareStatement("INSERT INTO compagnia (nome_compagnia) VALUES(?)");
+            p.setString(1,request.getParameter("compagnia"));
+            int result=p.executeUpdate();
+            if(result > 0){ %>
     <h1 class="query-result">Compagnia aggiunta con successo</h1>
     <% }else{ %>
     <h1 class="query-result">Errore nell'aggiunta della compagnia</h1>
-    <% } } catch (SQLException ex) { System.err.println("Errore nella
-    connessione. " + ex.getMessage()); } finally { if (connessione != null) {
+    <% } } catch (SQLException ex) { 
+    System.err.println("Errore nella connessione. " + ex.getMessage());
+    } finally { if (connessione != null) {
     try { connessione.close(); } catch (SQLException ex) {
     System.err.println("Errore nella connessione. " + ex.getMessage()); } } } }
-    if(request.getParameter("edit_volo_confirm") != null){ try { connessione =
-    DriverManager.getConnection(URL_DB,user,psw); PreparedStatement p =
-    connessione.prepareStatement("UPDATE volo SET tipo=? where id=?");
+    if(request.getParameter("edit_volo_confirm") != null){ try { 
+    connessione = DriverManager.getConnection(URL_DB,user,psw); 
+    PreparedStatement p = connessione.prepareStatement("UPDATE volo SET tipo=? where id=?");
     p.setString(1,request.getParameter("tipo"));
-    p.setString(2,request.getParameter("id")); int result=p.executeUpdate();
+    p.setString(2,request.getParameter("id")); 
+    int result=p.executeUpdate();
     if(result > 0){ %>
     <h1 class="query-result">Modifica avvenuta con successo</h1>
     <% }else{ %>
     <h1 class="query-result">Errore durante la modifica del volo</h1>
-    <% } } catch (SQLException ex) { System.err.println("Errore nella
-    connessione. " + ex.getMessage()); } finally { if (connessione != null) {
+    <% } } catch (SQLException ex) { 
+    System.err.println("Errore nella connessione. " + ex.getMessage());
+    } finally { if (connessione != null) {
     try { connessione.close(); } catch (SQLException ex) {
     System.err.println("Errore nella connessione. " + ex.getMessage()); } } } }
-    if(request.getParameter("delete_volo_confirm") != null){ try { connessione =
-    DriverManager.getConnection(URL_DB,user,psw); PreparedStatement p =
-    connessione.prepareStatement("DELETE FROM volo where id=?");
-    p.setString(1,request.getParameter("id")); int result=p.executeUpdate();
+    if(request.getParameter("delete_volo_confirm") != null){ try { 
+    connessione = DriverManager.getConnection(URL_DB,user,psw);
+    PreparedStatement p = connessione.prepareStatement("DELETE FROM volo where id=?");
+    p.setString(1,request.getParameter("id"));
+    int result=p.executeUpdate();
     if(result > 0){ %>
     <h1 class="query-result">Eliminazione avvenuta con successo</h1>
     <% }else{ %>
     <h1 class="query-result">Errore durante l'eliminazione del volo</h1>
-    <% } } catch (SQLException ex) { System.err.println("Errore nella
-    connessione. " + ex.getMessage()); } finally { if (connessione != null) {
+    <% } } catch (SQLException ex) {
+    System.err.println("Errore nella connessione. " + ex.getMessage()); } finally { if (connessione != null) {
     try { connessione.close(); } catch (SQLException ex) {
     System.err.println("Errore nella connessione. " + ex.getMessage()); } } } }
     %>
